@@ -7,8 +7,10 @@
 # AUTHORS: 
 # ----------------------------------------------------------------------------------------------
 # Cristian R. Munteanu: RNASA-IMEDIR, University of A Coruna, Spain, muntisa@gmail.com
+# Carlos Fernandez-Lozano: RNASA-IMEDIR, University of A Coruna, Spain, carlos.fernandez@udc.es 
 # Georgia Tsiliki: ChemEng - NTUA, Greece, g_tsiliki@hotmail.com
 # Haralambos Sarimveis: ChemEng - NTUA, Greece, hsarimv@central.ntua.gr
+# Humberto Gonzalez-Diaz, IKERBASQUE / University of Basque Country, Spain, gonzalezdiazh@yahoo.es
 # Egon Willighagen: BiGCaT - Maastricht University, Netherlands, egon.willighagen@gmail.com
 # ----------------------------------------------------------------------------------------------
 
@@ -42,8 +44,10 @@ RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeans_Results.
                      "===================================================================================================",
                      "Calculate Drug Markov Mean Descriptors using SMILES drug formulas", "eNanoMapper.net","AUTHORS:",
                      "Cristian R. Munteanu: RNASA-IMEDIR, University of A Coruna, Spain, muntisa@gmail.com",
+					 "Carlos Fernandez-Lozano: RNASA-IMEDIR, University of A Coruna, Spain, carlos.fernandez@udc.es", 
                      "Georgia Tsiliki: ChemEng - NTUA, Greece, g_tsiliki@hotmail.com",
                      "Haralambos Sarimveis: ChemEng - NTUA, Greece, hsarimv@central.ntua.gr",
+					 "Humberto Gonzalez-Diaz, IKERBASQUE / University of Basque Country, Spain, gonzalezdiazh@yahoo.es",
                      "Egon Willighagen: BiGCaT - Maastricht University, The Netherlands, egon.willighagen@gmail.com",
                      "===================================================================================================",sep="\n")
   cat(sDescription) # print package header information
@@ -240,8 +244,10 @@ RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingulars_
                      "===================================================================================================",
                      "Calculate Drug Markov Singular Values of Transition Probabilities using SMILES drug formulas", "eNanoMapper.net","AUTHORS:",
                      "Cristian R. Munteanu: RNASA-IMEDIR, University of A Coruna, Spain, muntisa@gmail.com",
+					 "Carlos Fernandez-Lozano: RNASA-IMEDIR, University of A Coruna, Spain, carlos.fernandez@udc.es", 
                      "Georgia Tsiliki: ChemEng - NTUA, Greece, g_tsiliki@hotmail.com",
                      "Haralambos Sarimveis: ChemEng - NTUA, Greece, hsarimv@central.ntua.gr",
+					 "Humberto Gonzalez-Diaz, IKERBASQUE / University of Basque Country, Spain, gonzalezdiazh@yahoo.es",
                      "Egon Willighagen: BiGCaT - Maastricht University, The Netherlands, egon.willighagen@gmail.com",
                      "===================================================================================================",sep="\n")
   cat(sDescription) # print package header information
