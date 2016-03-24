@@ -30,17 +30,17 @@ library(expm)
 library(MASS)
 source("../RMarkovTI/R/RMarkovTI_functions.R")
 
-# call with all default parameters (SFile="SMILES.txt",sResultFile="RDMarkovSingulars_Results.csv",kPower="3")
-RDMarkovSingulars_results <- RDMarkovSingulars()
+# call with all default parameters (SFile="SMILES.txt",sResultFile="RDMarkovSingularsResults.csv",kPower="3")
+RDMarkovSingularsResults <- RDMarkovSingulars()
 
 # call using a specific input SMILES file
-RDMarkovSingulars_results <- RDMarkovSingulars(SFile="mySMILES.txt")
+RDMarkovSingularsResults <- RDMarkovSingulars(SFile="mySMILES.txt")
 
 # call using custom input and output file names
-RDMarkovSingulars_results <- RDMarkovSingulars(SFile="mySMILES.txt", sResultFile="myResults.csv")
+RDMarkovSingularsResults <- RDMarkovSingulars(SFile="mySMILES.txt", sResultFile="myResults.csv")
 
 # call using all the function parameters
-RDMarkovSingulars_results <- RDMarkovSingulars(SFile="mySMILES.txt", sResultFile="myResults.csv", kPower="5")
+RDMarkovSingularsResults <- RDMarkovSingulars(SFile="mySMILES.txt", sResultFile="myResults.csv", kPower="5")
 }
 }
 \author{

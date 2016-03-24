@@ -17,7 +17,7 @@
 # RMarkovTI depends on: ChemmineR, base, expm, MASS
 
 # ------ FUNCTIONS --------------------------------------------------------------------------------------
-RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeans_Results.csv",kPower="3") {
+RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeansResults.csv",kPower="3") {
   # Calculate Markov Mean Descriptors for drugs; output = CVS file
   # ---------------------------------------------------------------------------------------------------------------------------
   # FLOW
@@ -213,7 +213,7 @@ RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeans_Results.
 }
 
 # -----------------------------------------------------------------------------------------------------------------
-RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingulars_Results.csv",kPower=3,fAllKs=0) {
+RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingularsResults.csv",kPower=3,fAllKs=0) {
   # Calculate Drug Markov Singular Values of Transition Probabilities; output = CVS file
   # -------------------------------------------------------------------------------------------------------
   # FLOW

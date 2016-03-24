@@ -30,16 +30,16 @@ library(MASS)
 source("../RMarkovTI/R/RMarkovTI_functions.R")
 
 # call with all default parameters (SFile="SMILES.txt",sResultFile="RDMarkovMeans_Results.csv",kPower="3")
-RDMarkovMeans_results <- RDMarkovMeans()
+RDMarkovMeansResults <- RDMarkovMeans()
 
 # call using a specific input SMILES file
-RDMarkovMeans_results <- RDMarkovMeans(SFile="mySMILES.txt")
+RDMarkovMeansResults <- RDMarkovMeans(SFile="mySMILES.txt")
 
 # call using custom input and output file names
-RDMarkovMeans_results <- RDMarkovMeans(SFile="mySMILES.txt", sResultFile="myResults.csv")
+RDMarkovMeansResults <- RDMarkovMeans(SFile="mySMILES.txt", sResultFile="myResults.csv")
 
 # call using all the function parameters
-RDMarkovMeans_results <- RDMarkovMeans(SFile="mySMILES.txt", sResultFile="myResults.csv", kPower="5")
+RDMarkovMeansResults <- RDMarkovMeans(SFile="mySMILES.txt", sResultFile="myResults.csv", kPower="5")
 }
 }
 \author{
