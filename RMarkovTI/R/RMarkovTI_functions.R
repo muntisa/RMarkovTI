@@ -1,3 +1,5 @@
+library(base)
+
 # ===================================================================================
 # RMarkovTI = R Markov Topological Indices
 # ===================================================================================
@@ -10,6 +12,7 @@
 # Carlos Fernandez-Lozano: RNASA-IMEDIR, University of A Coruna, Spain, carlos.fernandez@udc.es 
 # Georgia Tsiliki: ChemEng - NTUA, Greece, g_tsiliki@hotmail.com
 # Haralambos Sarimveis: ChemEng - NTUA, Greece, hsarimv@central.ntua.gr
+# Paula Carracedo: University of Basque Country, Spain, pcreboredo@gmail.com
 # Humberto Gonzalez-Diaz, IKERBASQUE / University of Basque Country, Spain, gonzalezdiazh@yahoo.es
 # Egon Willighagen: BiGCaT - Maastricht University, Netherlands, egon.willighagen@gmail.com
 # ----------------------------------------------------------------------------------------------
@@ -37,7 +40,7 @@ RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeansResults.c
   # You can add any atom property into the properties file!
   # You need to have ALL the atoms from SMILEs into the properties files (if not, an error will occur!)
   
-  WFile="../data/AtomProperties.txt" # text file with atom properties
+  WFile="weight/AtomProperties.txt" # text file with atom properties
   
   sDescription=paste("\n===================================================================================================",
                      "RDMarkovMeans - R Drug Markov Mean Descriptors",
@@ -55,18 +58,25 @@ RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeansResults.c
   
   ptmTot <- proc.time() # starting counting executing time
   
+  # read 2 column new input file
+  dnew=read.table(SFile,header=F)
+  # write only smiles into a new file onlySMILES.txt
+  SFile2 = "onlySMILES.txt"
+  write.table(dnew[,2], SFile2, row.names=F, col.names=F, sep="", quote = FALSE)
+  
   #-------------------------------------------------------------------------------
   # Read SMILES formulas
   #-------------------------------------------------------------------------------
-  smiset <- read.SMIset(SFile)        # read a file with SMILES codes as object
+  smiset <- read.SMIset(SFile2)       # read a file with SMILES codes as object from onlySMILES.txt !!!! (intermediate file, not the original input file !!!
   smiles <- as.character(smiset)      # convert the object with SMILES into a text list
   
   nSmiles <- length(smiles)           # number of SMILES formulas
   #-------------------------------------------------------------------------------
   # Read WEIGHTs from file
   #-------------------------------------------------------------------------------
-  #dfW=read.table(WFile,header=T)      # read weigths TXT file
-  load("AtomProperties.RData")         # read R data -> dfW
+  dfW=read.table(WFile,header=T)      # read weigths TXT file
+  # load("AtomProperties.RData")         # read R data -> dfW
+  print(dfW)
   
   Headers    <- names(dfW)             # list variable names into the dataset
   wNoRows    <- dim(dfW)[1]            # number of rows = atoms with properties
@@ -94,9 +104,13 @@ RDMarkovMeans <- function(SFile="SMILES.txt",sResultFile="RDMarkovMeansResults.c
   #-------------------------------------------------------------------------------
   for(s in 1:nSmiles){          # process for each SMILES
     smi <- smiles[[s]]                 # SMILES formula
-    molName <- names(smiles)[s]        # molecule label
-    print(c(s,molName))
+    
+	# molName <- names(smiles)[s]        # molecule label
+    molName <- as.character(dnew[,1][s])        # molecule label from the 2 column original input file!
+	
+	print(c(s,molName))
     sdf <- smiles2sdf(smi)             # convert one smiles to sdf format
+	
     BM <- conMA(sdf,exclude=c("H"))    # bond matrix (complex list!)
     
     sResults <- sprintf("%s%s",sResults,molName) # add molecule name to the result
@@ -237,7 +251,7 @@ RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingularsR
   # -------------------------------------------------------------------------------------------------------
   # You can add any atom property into the properties file!
   # You need to have ALL the atoms from SMILEs into the properties files (if not, an error will occur!)
-  WFile="../data/AtomProperties.txt" # text file with atom properties
+  WFile="weight/AtomProperties.txt" # text file with atom properties
   
   sDescription=paste("\n===================================================================================================",
                      "RDMarkovSingulars - R Drug Markov Singular Values of Transition Probabilities Descriptors",
@@ -255,17 +269,23 @@ RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingularsR
   
   ptmTot <- proc.time() # starting counting executing time
   
+  # read 2 column new input file
+  dnew=read.table(SFile,header=F)
+  # write only smiles into a new file onlySMILES.txt
+  SFile2 = "onlySMILES.txt"
+  write.table(dnew[,2], SFile2, row.names=F, col.names=F, sep="", quote = FALSE)
+  
   #--------------------------------------------------------------------------------------------------------
   # Read SMILES formulas
   #--------------------------------------------------------------------------------------------------------
-  smiset <- read.SMIset(SFile)        # read a file with SMILES codes as object
+  smiset <- read.SMIset(SFile2)        # read a file with SMILES codes as object from onlySMILES.txt !!
   smiles <- as.character(smiset)      # convert the object with SMILES into a text list
   nSmiles <- length(smiles)           # number of SMILES formulas
   #-------------------------------------------------------------------------------
   # Read WEIGHTs from file
   #-------------------------------------------------------------------------------
-  # dfW=read.table(WFile,header=T)       # read weigths TXT file
-  load("AtomProperties.RData")         # read R data -> dfW
+  dfW=read.table(WFile,header=T)       # read weigths TXT file
+  # load("AtomProperties.RData")         # read R data -> dfW
   
   Headers    <- names(dfW)             # list variable names into the dataset
   wNoRows    <- dim(dfW)[1]            # number of rows = atoms with properties
@@ -282,11 +302,11 @@ RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingularsR
     for(atty in 1:natomTypes){
       if (fAllKs == 1){                # if the flag for all descriptors (all k) is 1, add the header (descriptor names)
         for(k in 0:kPower){
-          sResults <- sprintf("%s,MMP.%s.%s.%s.Min,MMP.%s.%s.%s.Max",sResults,Headers[h],atomTypes[atty],k,Headers[h],atomTypes[atty],k)
+          sResults <- sprintf("%s,MSVTP.%s.%s.%s.Min,MSVTP.%s.%s.%s.Max",sResults,Headers[h],atomTypes[atty],k,Headers[h],atomTypes[atty],k)
         }
       }
       # Add each descriptor label as 4 Chem-Phys property * 6 Atom type *2 for Min and Max = 48 descriptors
-      sResults <- sprintf("%s,MMP.%s.%s.AvgMin,MMP.%s.%s.AvgMax",sResults,Headers[h],atomTypes[atty],Headers[h],atomTypes[atty])
+      sResults <- sprintf("%s,MSVTP.%s.%s.AvgMin,MSVTP.%s.%s.AvgMax",sResults,Headers[h],atomTypes[atty],Headers[h],atomTypes[atty])
     }  
   }
   sResults <- sprintf("%s\n",sResults)
@@ -297,7 +317,10 @@ RDMarkovSingulars <- function(SFile="SMILES.txt",sResultFile="RDMarkovSingularsR
   #----------------------------------------------------------------------------------------------
   for(s in 1:nSmiles){          # process for each SMILES
     smi <- smiles[[s]]                 # SMILES formula
-    molName <- names(smiles)[s]        # molecule label
+    
+	# molName <- names(smiles)[s]        # molecule label
+	molName <- as.character(dnew[,1][s])        # molecule label from the 2 column original input file!
+	
     print(c(s,molName))
     sdf <- smiles2sdf(smi)             # convert one smiles to sdf format
     BM <- conMA(sdf,exclude=c("H"))    # bond matrix (complex list!)

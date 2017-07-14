@@ -24,7 +24,7 @@ source("../RMarkovTI/R/RMarkovTI_functions.R")
 
 # RDMarkovMeans_results <- RDMarkovMeans()
 # RDMarkovMeans_results <- RDMarkovMeans(SFile="SMILES_500.txt")
-RDMarkovMeans_results <- RDMarkovMeans(SFile="SMILESnew.txt", sResultFile="myResults_test.csv")
+RDMarkovMeans_results <- RDMarkovMeans(SFile="SMILES.txt", sResultFile="myResults_test.csv")
 # RDMarkovSingulars_results <- RDMarkovSingulars(SFile="smilesSolv.txt", sResultFile="DescSolvS.txt")
 
 # RDMarkovMeans_results <- RDMarkovMeans()
@@ -34,5 +34,5 @@ RDMarkovMeans_results <- RDMarkovMeans(SFile="SMILESnew.txt", sResultFile="myRes
 #RDMarkovMeans_results <- RDMarkovMeans(SFile="smileSubs.txt", sResultFile="DescSubsM.txt")
 #RDMarkovMeans_results <- RDMarkovMeans(SFile="smileNuc.txt", sResultFile="DescNucM.txt")
 #RDMarkovMeans_results <- RDMarkovMeans(SFile="smileCat.txt", sResultFile="DescCatM.txt")
-RDMarkovSingulars_results <- RDMarkovSingulars(SFile="SMILESnew.txt", sResultFile="myResults_test2.csv")
+RDMarkovSingulars_results <- RDMarkovSingulars(SFile="SMILES.txt", sResultFile="myResults_test2.csv")
 

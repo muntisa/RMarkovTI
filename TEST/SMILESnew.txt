@@ -1,0 +1,2 @@
+Test1	CCCC
+Test2	CCC=CNCl
