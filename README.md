@@ -3,13 +3,12 @@ RMarkovTI
 
 Markov Topoological Indices in R
 
-University of A Coruna (Spain) & eNanoMapper Developers |  [eNanoMapper Project] (http://www.enanomapper.net/)
+University of A Coruna (Spain) & University of the Basque Country (Spain) & eNanoMapper Developers |  [eNanoMapper Project] (http://www.enanomapper.net/)
 Contact: muntisa [at] gmail [dot] com
 
 It is a tool for the calculation of Markov Molecular Topological Indices: Markov Mean Properties and Markov Singular Values of Transition Probabilities for drugs. 
 
-Markov Mean Properties (MMPs) molecular descriptors for drugs are using SMILES formulas and atom physical - chemical properties as inputs. It is using the MInD-Prot tool formulas for drugs.
-The atom properties are ...... There are 6 types of atom types: All (all atoms), Csat (saturated C), Cinst (insaturated C), Hal (halogen), Het (heteroatoms) and HetNoX (heteroatoms but not halogens).
+The new tool implements two types of drug descriptors using molecular graph topology, atom interactions and atom properties: Markov Mean Properties and Markov Singular Values of Transition Probabilities. The algorithm is derived from a previous python private software, MInD-Prot but the atom weights are different: number of valence electrons, vand der Waals atomic radius, covalent radius, atomic mass, vand der Waals volume, Sanderson electronegativity, atomic polarizability, ionization potential, and electron affinity. The open source R package is based on ChemmineR, base, expm, and MASS packages.
 
 Markov Mean Properties (MMPs) algorithm: 
 - Read the inputs: SMILES formulas and atom properties
@@ -27,4 +26,6 @@ Markov Mean Properties (MMPs) algorithm:
 The next steps:
 - correct errors due to missing atoms into the atom properties file
 
-(C) 2016
+The tool is presented as an R package and it will contains additional Web interface as an Web tool.
+
+(C) 2017
