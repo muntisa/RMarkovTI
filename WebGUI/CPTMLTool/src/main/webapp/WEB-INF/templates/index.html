@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	 <title>CPTMLTool</title>
+	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+  
+  	<link rel="stylesheet" th:href="@{resources/css/bootstrap.css}"/>
+  	
+</head>
+<body>
+
+<div class = "page-header" style="background-color: #C1C1C1;">
+    <div class="row">
+	   <div class="col-md-1">
+	   </div>
+	   <div class="col-md-3">
+	   		<a href="http://www.ehu.eus/es"><img th:src="@{/resources/img/logoehu.png}"/></a>
+	   </div>
+	    <div class="col-md-2">
+	   </div>
+	   <div class="col-md-5">
+	   <div class="row">
+	      <br/>
+	   </div>
+	   <div class="row">
+	   	 <h1 style="color:#fff">
+		      Organometallics in Synthesis
+		      <small>Group</small>
+		  </h1>
+	   	</div>
+	   	<div class="row">
+	    	
+	   	</div>
+	  </div>	 
+	</div>	
+</div>
+
+<br/>
+
+<h1 align="center">Chemical Perturbation Theory Machine Learning</h1>
+<br/>
+<br/>
+<br/>
+<br/>
+
+	<div class="row">
+		<div class="col-md-3" align = "center">
+			<img th:src="@{resources/img/mmdCalc.jpg}"/>
+		</div>
+		<div class="col-md-3" align = "center">
+			<img th:src="@{resources/img/mmdAAlq.jpg}"/>
+		</div>
+		<div class="col-md-3" align = "center">
+			<img th:src="@{resources/img/server3.jpg}"/>
+		</div>
+		<div class="col-md-3" align = "center">
+			<img th:src="@{resources/img/server4.jpg}"/>
+		</div>
+	
+	</div>
+	<div class="row">
+		<div class="col-md-3" align = "center">
+			<h3>Molecular Descriptor</h3>
+		</div>
+		<div class="col-md-3" align = "center">
+		  	<h3>Molecular Amidoalquilation Theoretical Enantiomeric excess Optimization</h3>  
+		</div>
+		<div class="col-md-3" align = "center">
+			<h3>anti Ca </h3>  
+		</div>
+		<div class="col-md-3" align = "center">
+			
+		</div>	
+	</div>	
+	
+	<div class="row">
+		<div class="col-md-3" align = "center">
+		   <form th:method="post" th:object="${pwd}" role="form" th:action="@{/pwdMMd}"> 
+				<label style="color:#a95783">Insert Password for Server</label>
+		   	 	<input th:field="*{pwdMMD}"  required="required" type="password" class="form-control"/>
+		   	 	<p th:text="${pwdMMDError}" class="label-danger">Danger Label</p>
+		   	 	<input class="btn btn-block btn-sm" type="submit" value="Login MCD Calc"/>		
+		   	</form>
+		</div>
+		
+		<div class="col-md-3" align = "center">
+			<form th:method="post" th:object="${pwd}" role="form" th:action="@{/pwdMateo}"> 
+				<label style="color:#a95783">Insert Password for Server</label>
+		   	 	<input th:field="*{pwdMateo}"  required="required" type="password" class="form-control"/>
+		   	 	<p th:text="${pwdMateoError}" class="label-danger">Danger Label</p>
+		   	 	<input class="btn btn-block btn-sm" type="submit" value="Login Mateo"/>		
+		   	</form>
+		</div>
+		<div class="col-md-3" align = "center">
+			<form th:method="post" th:object="${pwd}" role="form" th:action="@{/pwdAntiCa}"> 
+				<label style="color:#a95783">Insert Password for Server</label>
+		   	 	<input th:field="*{pwdAntiCa}"  required="required" type="password" class="form-control"/>
+		   	 	<p th:text="${pwdAntiCaError}" class="label-danger">Danger Label</p>
+		   	 	<input class="btn btn-block btn-sm" type="submit" value="Login Mateo"/>		
+		   	</form>
+		</div>
+		
+		<div class="col-md-3" align = "center">
+	
+		</div>
+	</div>
+	
+	
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>antiCa</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+	 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<script th:src="@{resources/js/fileinput.js}" type="text/javascript"></script>    
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link th:href="@{resources/css/fileinput.css}" media="all" rel="stylesheet" type="text/css"/>
+    
+</head>
+<body>
+
+<div class = "page-header" style="background-color: #a95783;  margin-top: 0px;">
+  <div class="row">
+	   <div class="col-md-1">
+	   </div>
+	   <div class="col-md-3">
+	   		<a href="http://www.ehu.eus/es"><img th:src="@{/resources/img/logoehu.png}"/></a>
+	   </div>
+	    <div class="col-md-2">
+	   </div>
+	   <div class="col-md-5">
+	   <div class="row">
+	      <br/>
+	   </div>
+	   <div class="row">
+	   	 <h1 style="color:#fff">
+		     Organometallics in Synthesis
+		      <small style="color:#000000">Group</small>
+		  </h1>
+	   	</div>
+	   	
+	  </div>	 
+	</div>	
+	
+</div>
+
+<div class="container">
+	 <h3 align="center">Molecular Descriptors Calculation for SMILES antiCa</h3> 
+	<hr/>
+	 <form th:method="post" th:object="${parameters}"  role="form" th:action="@{/calcaulateDescriptors}" enctype="multipart/form-data"> 
+	  	 <div class="row">	
+	   		<div class="col-md-5">	
+	   			<div class="row">
+		 		   <label style="color:#a95783">Select optin 1</label>
+                   <select class="form-control">
+                     <option>option 1</option>
+                     <option>option 2</option>
+                   </select>                
+                </div>
+                <br/>
+        		<div class="row">
+		 		   <label style="color:#a95783">Select optin 2</label>
+                   <select class="form-control">
+                     <option>option 1</option>
+                     <option>option 2</option>
+                   </select>                
+                </div>
+                <br/>
+        		<div class="row">
+		 		   <label style="color:#a95783">Select optin 3</label>
+                   <select class="form-control">
+                     <option>option 1</option>
+                     <option>option 2</option>
+                   </select>                
+                </div>
+                <br/>
+        		<div class="row">
+		 		   <label style="color:#a95783">Select optin 4</label>
+                   <select class="form-control">
+                     <option>option 1</option>
+                     <option>option 2</option>
+                   </select>                
+                </div>
+                 <br/>
+        		<div class="row">
+		 		   <label style="color:#a95783">Select optin 5</label>
+                   <select class="form-control">
+                     <option>option 1</option>
+                     <option>option 2</option>
+                   </select>                
+                </div>
+             </div>
+		 	<div class="col-md-1">
+		 	</div>	
+		 	<div class="col-md-6">			
+				<div class="row">
+					 <h5 style="color:#a95783">Upload smiles file  <a href="#" data-toggle="modal" data-target="#myModal"><small>(example)</small></a>. Be aware, max size allowed 100 KB (*.csv or *.txt  file)</h5> 
+					 <small class="text-muted">For special necesities beyond this limit contact web server administrator, please.</small> 
+				</div>
+				<div class="row">	
+					<input type="file" accept=".csv,.txt" name="fileToUpload" id="fileToUpload" class="file"/>
+				</div>		
+				
+				<div class="row">
+					<h5 style="color:#a95783" align="center"><b>OR</b></h5>
+				</div>
+			
+				<div class="row">
+					 <h5>Paste here SMILE codes <a href="#" data-toggle="modal" data-target="#myModal"><small>(example)</small></a>. Aprox. up to 100 molecules with 50 atoms</h5> 
+					 <small style="color:#a95783">Please, if you need to process a larger set use upload option "From txt file" (top panel).</small> 
+				</div>
+				<div class="row">
+					 <div class="half right cfPaste multiple SMILE codes here">
+						<textarea th:field="*{content}"   
+							class="form-control input-sm" type="text" rows="7" name="smiles" id="smiles"></textarea>
+						<span name="countSmiles" id="countSmiles"></span>  
+						<span>SMILES inserted</span>
+						<input style="background-color:#a95783; color:#fff" class="btn btn-block btn-sm"  name="submitsave" type="submit" value="Generate molecular descriptors"/>
+				  	</div> 
+				</div>
+			</div>
+			</div>
+		  </form>	
+		  	  
+		<hr/>		
+		 <div class="row" align="center" >
+   			<a style="color:#a95783" th:href="@{/}">Back Home Page</a>
+   		</div>
+		<div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4" align="center">
+				<h3 class="text-muted">Contact emails</h3>
+				<a style="color:#a95783" href="mailto:humberto.gonzalezdiaz@ehu.eus">humberto.gonzalezdiaz@ehu.eus</a><br/>
+				<a style="color:#a95783" href="mailto:sonia.arrasate@ehu.eus">sonia.arrasate@ehu.eus</a><br/>
+				<a style="color:#a95783" href="mailto:paula.carracedo@udc.es">paula.carracedo@ehu.eus</a>
+		
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>
+</div>
+
+<div class="container">
+	<div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h4 class="modal-title">Format</h4>
+	        </div>
+	        <div class="modal-body">
+	          <p>Label1 (without commas),SMILE [Enter]</p>
+	          <p>Label2 (without commas),SMILE [Enter]</p>
+	          </div>
+	        <div class="modal-header">
+	           <h4 class="modal-title">Example</h4>
+	        </div>
+	        <div class="modal-body">
+	           <p>MOL1,CCCC</p>
+	          <p>MOL2,CCC=CNCl</p> 
+	        </div>
+	        <div class="modal-footer">
+	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+       </div>
+     </div>
+</div>
+					
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

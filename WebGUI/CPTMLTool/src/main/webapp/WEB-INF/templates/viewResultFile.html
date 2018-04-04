@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+     <title>Results</title>
+	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+	 
+	 <link type="text/css" rel="stylesheet" th:href="@{../../resources/css/bootstrap.min.css}" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script> 
+   </head>
+  
+   <body>
+
+	<br/>
+	<div class="row">
+		<h3 align="center"> Results...</h3>
+	</div>
+	
+   	<br/>
+   	<br/>
+   	<br/>
+   
+   
+   <script th:inline="javascript">
+/*<![CDATA[*/
+
+	function arrayToTable(tableData) {
+        var table = $('<table class="table table-bordered"></table>');
+        $(tableData).each(function (i, rowData) {
+            var row = $('<tr></tr>');
+            $(rowData).each(function (j, cellData) {
+                row.append($('<td>'+cellData+'</td>'));
+            });
+            table.append(row);
+        });
+        return table;
+    }
+	
+$.ajax({
+    type: "GET",
+    url: [[${fileName}]],
+    success: function (data) {
+    	$("#title").text([[${title}]]);
+        $('body').append(arrayToTable(Papa.parse(data).data));
+    }
+});
+
+/*]]>*/
+</script>
+   
+   </body>
+</html>

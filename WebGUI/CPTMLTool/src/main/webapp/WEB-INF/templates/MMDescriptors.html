@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Molecular Descriptors Calculate</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+	 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<script th:src="@{resources/js/fileinput.js}" type="text/javascript"></script>    
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link th:href="@{resources/css/fileinput.css}" media="all" rel="stylesheet" type="text/css"/>
+    
+</head>
+<body>
+
+<div class = "page-header" style="background-color: #338fd0;  margin-top: 0px;">
+  <div class="row">
+	   <div class="col-md-1">
+	   </div>
+	   <div class="col-md-3">
+	   		<a href="http://www.ehu.eus/es"><img th:src="@{/resources/img/logoehu.png}"/></a>
+	   </div>
+	    <div class="col-md-2">
+	   </div>
+	   <div class="col-md-5">
+	   <div class="row">
+	      <br/>
+	   </div>
+	   <div class="row">
+	   	 <h1 style="color:#fff">
+		     Organometallics in Synthesis
+		     <small style="color:#000000">Group</small>
+		  </h1>
+	   	</div>
+	   	
+	  </div>	 
+	</div>	
+	
+</div>
+
+<div class="container">
+	 <h3 align="center">Molecular Descriptors Calculation for SMILES</h3> 
+	<hr/>
+	 <form th:method="post" th:object="${parameters}"  role="form" th:action="@{/calcaulateDescriptors}" enctype="multipart/form-data"> 
+	   <div class="row">		
+		  <div class="col-md-6">		
+			 <div class="row" align="left">
+				<div class="col-md-5">
+					<h4 class="text-muted"><b>Atom types</b></h4>
+				</div>
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-6">
+					<h4 class="text-muted"><b>Atoms properties</b></h4>
+				</div>				
+			 </div>
+			 <hr/>
+			 <div class="row"> 
+					<div class="col-md-5">
+					  <div id="atomTypes">							
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="allAtoms" name="allAtoms" checked="checked" th:field="*{allAtoms}" />All atoms</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="sat" name="sat" checked="checked" th:field="*{cSat}" />Saturated C</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="unsat" name="unsat" checked="checked" th:field="*{cUns}" />Unsaturated C</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="hal" name="hal" checked="checked" th:field="*{hal}" />Halogen</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="het" name="het" checked="checked" th:field="*{het}" />Heteroatoms</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="hetNox" name="hetNox" checked="checked" th:field="*{hetNoX}" />Heteroatoms not Halogens</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+					</div>
+					<div class="col-md-6">
+					  <div id="atomProperties">
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="checkZv" onClick="checkedZv();" th:field="*{zv}" />Number of Valence Electrons (Zv)</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="checkVvdw" onClick="checkedVvdw();" th:field="*{vvdw}" />Vand der Waals Volume (Vvdw)</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="checkSae" onClick="checkedSae();" th:field="*{sae}" />Sanderson Electronegativity (&chi;)</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="checkApolar" onClick="checkedApolar();" th:field="*{aPolar}" />Atomic Polarizability (&alpha;)</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="checkEa" onClick="checkedEa();" th:field="*{ea}" />Electron Affinity (EA)</label>
+							</div>
+							<br/>
+							<div class="row">
+								<label class="checkbox-inline"><input type="checkbox" id="checkNone"  onClick="checkedAll();" th:field="*{noneAtProp}" />None</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+					</div>
+					<div class="col-md-2">
+						
+					</div>
+				  </div>
+				  <hr/>
+			  	  
+			  	  <div class="row">
+			  	  	<div class="col-md-3">	
+			  	  		<h4 class="text-muted"><b>Descriptors</b></h4>
+			  	  	</div>	
+			  	  	<div class="col-md-3">	
+			  	  		<label class="checkbox-inline"><input type="checkbox" th:checked="${true}" th:field="*{means}" />Means</label>
+			  	  	</div>
+			  	  	<div class="col-md-3">	
+			  	  		<label class="checkbox-inline"><input type="checkbox" checked="checked" th:field="*{singular}" />Singular</label>
+			  	  	</div>
+				  </div>		
+				</div>
+			 
+			<div class="col-md-6">			
+				<div class="row">
+					 <h5 class="text-primary">Upload smiles file  <a href="#" data-toggle="modal" data-target="#myModal"><small>(example)</small></a>. Be aware, max size allowed 100 KB (*.csv or *.txt  file)</h5> 
+					 <small class="text-muted">For special necesities beyond this limit contact web server administrator, please.</small> 
+				</div>
+				<div class="row">	
+					<input type="file" accept=".csv,.txt" name="fileToUpload" id="fileToUpload" class="file"/>
+				</div>		
+				
+				<div class="row">
+					<h5 class="text-primary" align="center"><b>OR</b></h5>
+				</div>
+			
+				<div class="row">
+					 <h5>Paste here SMILE codes <a href="#" data-toggle="modal" data-target="#myModal"><small>(example)</small></a>. Aprox. up to 100 molecules with 50 atoms</h5> 
+					 <small class="text-primary">Please, if you need to process a larger set use upload option "From txt file" (top panel).</small> 
+				</div>
+				<div class="row">
+					 <div class="half right cfPaste multiple SMILE codes here">
+						<textarea th:field="*{content}"   
+							class="form-control input-sm" type="text" rows="7" name="smiles" id="smiles"></textarea>
+						<span name="countSmiles" id="countSmiles"></span>  
+						<span>SMILES inserted</span>
+						<input class="btn btn-block btn-primary btn-sm"  name="submitsave" type="submit" value="Generate molecular descriptors"/>
+				  	</div> 
+				</div>
+			</div>
+			</div>
+		  </form>	
+		  	  
+		<hr/>		
+		 <div class="row" align="center" >
+   			<a th:href="@{/}">Back Home Page</a>
+   		</div>
+		<div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4" align="center">
+				<h3 class="text-muted">Contact emails</h3>
+				<a href="mailto:humberto.gonzalezdiaz@ehu.eus">humberto.gonzalezdiaz@ehu.eus</a><br/>
+				<a href="mailto:sonia.arrasate@ehu.eus">sonia.arrasate@ehu.eus</a><br/>
+				<a href="mailto:paula.carracedo@ehu.eus">paula.carracedo@ehu.eus</a>
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>
+</div>
+
+<div class="container">
+	<div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h4 class="modal-title">Format</h4>
+	        </div>
+	        <div class="modal-body">
+	          <p>Label1 (without commas),SMILE [Enter]</p>
+	          <p>Label2 (without commas),SMILE [Enter]</p>
+	          </div>
+	        <div class="modal-header">
+	           <h4 class="modal-title">Example</h4>
+	        </div>
+	        <div class="modal-body">
+	           <p>MOL1,CCCC</p>
+	          <p>MOL2,CCC=CNCl</p> 
+	        </div>
+	        <div class="modal-footer">
+	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+       </div>
+     </div>
+</div>
+					
+<script type="text/javascript">
+
+function checkedAll()
+{
+	if (checkNone.checked == true)
+	{
+		
+		document.getElementById("checkZv").checked = false;
+		document.getElementById("checkVvdw").checked = false;
+		document.getElementById("checkApolar").checked = false;
+		document.getElementById("checkEa").checked = false;
+		document.getElementById("checkSae").checked = false;
+		
+		document.getElementById("checkNone").innerHTML  = "All";
+	}
+	else
+	{
+		document.getElementById("checkZv").checked = true;
+		document.getElementById("checkVvdw").checked = true;
+		document.getElementById("checkApolar").checked = true;
+		document.getElementById("checkEa").checked = true;
+		document.getElementById("checkSae").checked = true;
+	}
+}
+
+function checkedZv()
+{
+	if (checkZv.checked == true)
+	{
+		document.getElementById("checkNone").checked = false;
+	}
+}
+
+function checkedVvdw()
+{
+	if (checkVvdw.checked)
+	{
+		document.getElementById("checkNone").checked = false;
+	}
+}
+
+function checkedApolar()
+{
+	if (checkApolar.checked)
+	{
+		document.getElementById("checkNone").checked = false;
+	}
+}
+
+function checkedEa()
+{
+	if (checkEa.checked)
+	{
+		document.getElementById("checkNone").checked = false;
+	}
+}
+
+function checkedSae()
+{
+	if (checkSae.checked)
+	{
+		document.getElementById("checkNone").checked = false;
+	}
+}
+
+
+//<![CDATA[ 
+
+
+$("#smiles").keyup(function() {
+	
+	var string = $('#smiles').val();
+	var lines = string.split(/\n/).length;
+	
+	if (lines < 100)
+	{
+		$("#countSmiles").text(lines);
+		$('#smiles').attr('readonly', false);		
+	}
+	else
+	{
+		$('#smiles').attr('readonly', true);
+	}
+});
+	
+//]]>
+</script>
+
+</body>
+</html>

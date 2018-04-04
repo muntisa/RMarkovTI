@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+     <title>Results</title>
+	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+	 
+	 <link type="text/css" rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}" />
+	 
+   </head>
+  
+   <body>
+   <div class = "page-header" style="background-color: #af1a1a;">
+	  <div class="row">
+		   <div class="col-md-1">
+		   </div>
+		   <div class="col-md-3">
+		   		<a href="http://www.ehu.eus/es"><img th:src="@{/resources/img/logoehu.png}"/></a>
+		   </div>
+		    <div class="col-md-2">
+		   </div>
+		   <div class="col-md-5">
+		   <div class="row">
+		      <br/>
+		   </div>
+		   <div class="row">
+		   	 <h1 style="color:#fff">
+			     Organometallics in Synthesis
+			      <small>Group</small>
+			  </h1>
+		  </div>
+		   
+		  </div>	 
+		</div>	
+</div>
+   
+   <br/>
+   
+   <p th:text="${paula}"></p>
+   <p th:text="${paula2}"></p>
+   
+  
+	   <div class="row" align ="center">
+	 		<progress id="progressBar" value="0" max="100" style="width:65%; height:34px; background-color: #d6d620;"></progress>
+	   </div>
+	 	<div class="row" align ="center">
+	   	<span id="status"></span>
+	   </div>
+	   
+	   
+	   <div class="row">
+	    <div class="col-md-3">
+		</div>
+		
+		<div class="col-md-6">	  
+	    	<h1 align="center" id="finalMessage"></h1>    	
+		</div>
+		
+		<div class="col-md-3">
+		</div>
+	   </div>
+   
+   <br/>
+    <div id="results" style="visibility:hidden">
+	   <div class="row">
+	   		<p align="center">Your calculation results file shall be keept save on 
+	   		the web server during 30 days max, please email the web server master if you lose the information</p>
+	   </div>
+	    <div class="row">
+	   		<p align="center">You can VIEW the result file from the following link:</p>
+	   </div>
+	   <div class="row" align="center" >
+	   		<a target="_blank" th:href="@{|/viewResultFile/${server}/${urlEE}|}" th:text="|View result file: ${urlEE}|"></a>
+	   </div>	
+	   <div class="row">
+	   		<h2 align="center">OR</h2>
+	   </div>   
+	   <div class="row">
+	   		<p align="center">You can DOWNLOAD the result file from the following link:</p>
+	   </div>
+	   <div class="row" align="center" >
+	   		<a th:href="@{|/downloadResultFile/${server}/${urlEE}|}" th:text="|Download result file: ${urlEE}|"></a>
+	   </div>	
+	   <hr/>
+	   <div class="row" align="center" >
+   			<a th:href="@{/}">Back Home Page</a>
+   	   </div>
+   	   <br/>
+   	    <div class="row" align="center" >
+   			<a th:href="@{/mateo}">Back Mateo Home Page</a>
+   	   </div>
+   
+  		<div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4" align="center">
+				<h3 class="text-muted">Contact emails</h3>
+				<a href="mailto:humberto.gonzalezdiaz@ehu.eus">humberto.gonzalezdiaz@ehu.eus</a><br/>
+				<a href="mailto:sonia.arrasate@ehu.eus">sonia.arrasate@ehu.eus</a><br/>
+				<a href="mailto:paula.carracedo@ehu.eus">paula.carracedo@ehu.eus</a>
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>
+	   
+	      
+	 </div>
+   <hr/>
+   
+
+   
+   
+ 
+    	 	
+ <script th:inline="javascript">
+ 
+ 
+ function progressBarSim(al){ 
+	 
+	 	var time = [[${time}]];
+	   
+	  	var bar = document.getElementById('progressBar');
+    	var status = document.getElementById('status');
+    	status.innerHTML = al+"%";
+    	bar.value = al;
+    	al++;
+		
+    	var sim= setTimeout("progressBarSim("+al+")", time);
+    	
+    	if (al == 100){
+    		status.innerHTML = "100%";
+    		bar.value = 100;
+    		clearTimeout(sim);
+    		document.getElementById('finalMessage').innerHTML="Process completed"; 
+    		document.getElementById('results').style.visibility='visible';
+    	}
+ }
+ 
+ var amountLoaded =0;
+ progressBarSim(10);
+    	
+    	</script>
+   </body>
+</html>

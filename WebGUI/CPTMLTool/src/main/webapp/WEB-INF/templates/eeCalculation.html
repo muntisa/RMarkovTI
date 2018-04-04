@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Molecular Descriptors Calculate</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+	 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<script th:src="@{resources/js/fileinput.js}" type="text/javascript"></script>    
+	
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link th:href="@{resources/css/fileinput.css}" media="all" rel="stylesheet" type="text/css"/>
+    
+</head>
+<body>
+
+
+<div class = "page-header" style="background-color: #58a97d;  margin-top: 0px;">
+    <div class="row">
+	   <div class="col-md-1">
+	   </div>
+	   <div class="col-md-3">
+	   		<a href="http://www.ehu.eus/es"><img th:src="@{/resources/img/logoehu.png}"/></a>
+	   </div>
+	    <div class="col-md-2">
+	   </div>
+	   <div class="col-md-5">
+	   <div class="row">
+	      <br/>
+	   </div>
+	   <div class="row">
+	   	 <h1 style="color:#fff">
+		      Organometallics in Synthesis
+		     <small style="color:#000000">Group</small>
+		  </h1>
+	   	</div>
+	   	<div class="row">
+	    	<br/>
+	   	</div>
+	  </div>	 
+	</div>	
+	 
+</div>
+
+	<br/>
+		
+	<div class="row" align="center">
+		<div class="col-md-1" >
+		</div>
+		<div class="col-md-5" >
+			<div class="row" align="center">
+				<br/>
+			</div>
+			<div class="row" align="center">
+				<h2 align="center">Calculation of Enantiomeric Excess for Chiral Br&#248;nsted Acid-Catalyzed Intermolecular
+				&alpha;-Amidoalkylation Reactions</h2>
+			</div>
+		</div>
+		<div class="col-md-5" >	
+			<div class="row">
+				<div class="col-md-2" >
+				</div>		
+				<div class="col-md-10" >
+					<img th:src="@{/resources/img/EEImage.jpg}"/>
+				</div>
+			</div>	 		
+	 	</div>
+	 	 	
+	</div>
+	<hr/>	
+	<form th:method="post" id="form" th:object="${parametersEE}"  role="form" th:action="@{calculateEE}" enctype="multipart/form-data">
+
+	<div class="row">
+	
+		<div class="col-md-1">
+			<h2><b>Step 1</b></h2>
+	    </div>
+	
+		<div class="col-md-5" >
+			   <div class="row">
+				 <h4><b>Option 1:</b>Paste here SMILE codes for only 1 reaction</h4> 
+				 <small class="text-success">Please, if you need to process a larger set use upload option "From txt file" (top panel).</small> 
+			</div>
+			
+		  	<div class="row">		
+		  		<div class="nav-tabs-custom">
+	                <ul class="nav nav-tabs">
+	                  <li class="active"><a style="color:#3c763d" href="#substrate" data-toggle="tab" aria-expanded="true"><b>Substrate</b></a></li>
+	                  <li class=""><a style="color:#3c763d" href="#product" data-toggle="tab" aria-expanded="false"><b>Product</b></a></li>
+	                  <li class=""><a style="color:#3c763d" href="#catalyst" data-toggle="tab" aria-expanded="false"><b>Catalyst</b></a></li>
+	                  <li class=""><a style="color:#3c763d" href="#solvent" data-toggle="tab" aria-expanded="false"><b>Solvent</b></a></li>
+	                  <li class=""><a style="color:#3c763d" href="#nucleophile" data-toggle="tab" aria-expanded="false"><b>Nucleophile</b></a></li>
+	                </ul>                
+	
+			        <div class="tab-content">
+		          	               	
+		          	               	
+				         <div class="tab-pane active" id="substrate">  
+		                   	<textarea onkeyup="suLimitSmiles()"  th:field="*{contentSubs}" 
+								class="form-control input-sm" type="text" rows="7" name="suSmiles" id="suSmiles"></textarea>
+								<span>Insert SMILE code for 1 Substrate</span>
+		               	</div>
+				      
+				        <div class="tab-pane" id="product">
+				          		<textarea onkeyup="pLimitSmiles()"  th:field="*{contentProd}" 
+								class="form-control input-sm" type="text" rows="7" name="pSmiles" id="pSmiles"></textarea>
+								<span>Insert SMILE code for 1 Product</span>		
+				        </div>
+				        			
+					 	<div class="tab-pane" id="catalyst">
+					          		<textarea onkeyup="cLimitSmiles()"  th:field="*{contentCat}" 
+								class="form-control input-sm" type="text" rows="7" name="cSmiles" id="cSmiles"></textarea>
+								<span>Insert SMILE code for 1 Catalyst</span>				
+					    </div>		
+					    	
+						<div class="tab-pane" id="solvent">
+					          	<textarea onkeyup="soLimitSmiles()"  th:field="*{contentSolv}"
+								class="form-control input-sm" type="text" rows="7" name="soSmiles" id="soSmiles"></textarea>	
+								<span>Insert SMILE code for 1 Solvent</span>				
+					    </div>			
+					    
+					 	<div class="tab-pane" id="nucleophile">
+					          		<textarea onkeyup="nLimitSmiles()"  th:field="*{contentNuc}" 
+								class="form-control input-sm" type="text" rows="7" name="nSmiles" id="nSmiles"></textarea>	
+								<span>Insert SMILE code for 1 Nucleophile</span>			
+				        </div>			
+			        </div><!-- /.tab-content -->
+			       </div><!-- /.nav-tabs-custom -->	
+			</div>
+		</div>
+			<div class="col-md-1">
+				<br/>
+				<br/>
+				<h1 align="center">OR</h1>
+	   		 </div>
+	
+		<div class="col-md-4" >
+		
+		<div class="row">
+				 <h4 class="text-success"><b>Option 2:</b> Upload smiles file with multiple reactions <a href="#" data-toggle="modal" data-target="#modalFile"><small>(example)</small></a>. Be aware, max size allowed 100 KB (*.csv or *.txt  file)</h4> 
+				 <small class="text-success">For special necesities beyond this limit contact web server administrator, please.</small> 
+			</div>			
+			<div class="row">
+				<input type="file" name="fileToUpload" id="fileToUpload" class="file" />
+		  	</div>	
+		
+		
+		</div>
+	
+	</div>
+	
+	<hr/>
+
+
+	<div class="row">
+		<div class="col-md-1">
+			<h2><b>Step 2</b></h2>
+	    </div>
+		<div class="col-md-5" >
+  		        <div style="background:#58a97d;" class="box-header with-border">                
+                   <h3 align="center" style="color:#ffffff;">Similarity Search</h3>
+                </div><!-- /.box-header -->
+                <br/>
+                <div>
+                <div class="row">
+                	 <div class="col-md-4"></div>
+			 		 <div class="col-md-2" align="center"><b>Temp (&#176;C)</b></div>
+			 		 <div class="col-md-2" align="center"><b>Time (h)</b></div>
+			 		 <div class="col-md-2" align="center"><b>Load (%)</b></div>
+                </div>
+                <br/>
+                <div class="row" id="divDefault">
+					<div align="right" class="col-md-4"><b>Default values</b></div>
+						<div class="col-md-2">
+							<input th:field="*{temp}" id="temp" maxlength="5" required="required" type="text" class="form-control"/>
+						</div>
+						<div class="col-md-2">
+							<input th:field="*{time}" id="time" maxlength="5" required="required" type="text" class="form-control"/>
+						</div>
+						<div class="col-md-2">
+							<input th:field="*{load}" id="load" maxlength="5" required="required" type="text" class="form-control"/>
+						</div>
+						<div class="col-md-2">
+							<label class="checkbox-inline"><input id="predict" name="predict" type="checkbox" />Similarity</label>
+						</div>
+				</div>	
+		      </div><!-- /.box-body -->
+        
+                <div style="background:#58a97d;" class="box-header with-border">
+                   <h3 align="center" style="color:#ffffff;">Structural Scanning</h3>
+                </div><!-- /.box-header -->
+                <br/>
+                <div class="box-body">
+                	<div class="col-md-3"></div>
+                  	<div id="divElements">
+						 <label class="checkbox-inline"><input th:field="*{scanSol}" type="checkbox" id="scanSol" name="scanSol" />Solvent</label>
+						 <label class="checkbox-inline"><input th:field="*{scanSub}" type="checkbox" id="scanSub" name ="scanSub" />Substrate</label>
+						 <label class="checkbox-inline"><input th:field="*{scanCat}" type="checkbox" id="scanCat" name="scanCat" />Catalyst</label>
+						 <label class="checkbox-inline"><input th:field="*{scanNuc}" type="checkbox" id="scanNuc" name="scanNuc" />Nucleophile</label>
+					</div>
+                </div><!-- /.box-body -->
+            
+
+		  	
+		</div>
+		<div class="col-md-1" >
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+              <div class="box box-solid">
+                <div style="background:#58a97d;" class="box-header with-border">
+                  <h3 align="center" style="color:#ffffff;">Conditions Scanning</h3>
+                </div><!-- /.box-header -->
+                	<br/>
+                <div class="box-body">
+                  	
+                 <div class="row">
+			  		 <div class="col-md-2"></div>
+			 		 <div class="col-md-2" align="center"><b>Temp (&#176;C)</b></div>
+			 		 <div class="col-md-2" align="center"><b>Time (h)</b></div>
+			 		 <div class="col-md-2" align="center"><b>Load (%)</b></div>
+			 		 <div class="col-md-4" align="center"><b>Catalyst Chirality</b></div>
+				</div>
+				<br/>
+			<div id="divVars">
+				<div class="row">
+					<div class="col-md-2" align="right">
+						<b>Maximun</b>
+					</div>
+			  		<div class="col-md-2">
+			  			<input th:field="*{maxTemp}" id="maxTemp" name="maxTemp" maxlength="5" required="required" disabled="disabled" type="text" class="form-control"/>
+			  		</div>
+			 		<div class="col-md-2">
+			 		<input  th:field="*{maxTime}"  id="maxTime" required="required" maxlength="5" disabled="disabled" type="text" class="form-control"/>
+			 			
+			 		</div>
+			 		<div class="col-md-2">
+			 			<input  th:field="*{maxLoad}" id="maxLoad" required="required" maxlength="5" disabled="disabled" type="text" class="form-control"/>
+			 		</div>
+			 		<div class="col-md-4">
+			 			<select th:field="*{quiral}" id="quiral" class="form-control" disabled="disabled">
+							<option value="1">1</option>
+							<option value="-1">-1</option>
+						</select>
+			 		</div>
+				</div>
+				<br/>
+		
+				  	
+			</div> 
+                  	
+                  	
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+ 	        </div><!-- ./row -->
+			
+						<div class="row">
+			  		<div class="col-md-2" align="right">
+			  			<b>Minimun</b>
+			  		</div>
+			  		<div class="col-md-2">
+			  			<input th:field="*{minTemp}" id="minTemp" maxlength="5" required="required" disabled="disabled" type="text" text="-78" class="form-control"/>
+			  		</div>
+			 		<div class="col-md-2">
+			 			<input th:field="*{minTime}" id="minTime" maxlength="5" required="required" disabled="disabled" type="text" class="form-control"/>
+			 		</div>
+			 		<div class="col-md-2">
+			 			<input  th:field="*{minLoad}" id="minLoad" maxlength="5" required="required" disabled="disabled" type="text" class="form-control"/>
+			 		</div>
+				</div>
+				<br/>
+				<div class="row">
+			  		<div  align="right" class="col-md-2"><b>Step</b></div>
+				 	<div class="col-md-2">
+				 		<input  th:field="*{stepTemp}" id="tempStep" maxlength="3" required="required" disabled="disabled" type="text" class="form-control"/>
+				  	</div>
+				 	<div class="col-md-2">
+				 		<input  th:field="*{stepTime}" id="timeStep" maxlength="3" required="required" disabled="disabled" type="text" class="form-control"/>
+				 	</div>
+				 	<div class="col-md-2">
+				 		<input th:field="*{stepLoad}" id="loadStep" maxlength="3" required="required" disabled="disabled" type="text" class="form-control"/>
+				 	</div>
+				 	<div class="col-md-2">
+			 			<label class="checkbox-inline"><input th:field="*{scanVars}" id="scanVars" name="scanVars" type="checkbox" />Scan</label>
+			 		</div>
+			  	</div>
+	
+	</div>
+	</div>
+	<hr/>
+	  	   <div class="row">
+	  	   	<div class="col-md-2">
+	  	   		<h2><b>Step 3</b></h2>
+			</div>
+		
+			<div class="col-md-8" align="center">
+				<input class="btn btn-primary btn-lg btn-block" style="background:#58a97d; color:#ffffff;"  type="submit" value="Calculate Enantiomeric Excess"/>			 
+			</div>
+		
+			<div class="col-md-2">
+			</div>
+		
+		  </div>	
+	
+	</form>
+	
+	<hr/>
+	<div class="row" align="center" >
+   		<a style="color:#3c763d"  th:href="@{/}">Back Home Page</a>
+   	</div>
+	<div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4" align="center">
+				<h3 class="text-muted">Contact emails</h3>
+				<a style="color:#3c763d" href="mailto:humberto.gonzalezdiaz@ehu.eus">humberto.gonzalezdiaz@ehu.eus</a><br/>
+				<a style="color:#3c763d" href="mailto:sonia.arrasate@ehu.eus">sonia.arrasate@ehu.eus</a><br/>
+				<a style="color:#3c763d" href="mailto:paula.carracedo@udc.es">paula.carracedo@ehu.eus</a>
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>	
+
+
+<div class="container">
+	<div width="100%" class="modal fade" id="modalFile" role="dialog">
+	    <div class="modal-dialog modal-lg">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h4 class="modal-title">Format</h4>
+	        </div>
+	        <div class="modal-body">
+	          <p>Id;Subs;SubsSMILE;Prod;Prod;Cat;CatSMILE;Solv;SolvSMILE;Nuc;NucSMILE [Enter]</p>
+	          </div>
+	        <div class="modal-header">
+	           <h4 class="modal-title">Example</h4>
+	        </div>
+	        <div class="modal-body">
+	           <p>idReac; S05ae; OC(C1=...; P05aeNuf03; 
+	           O=C(CC(...; XX-R ; O=P1(O)...;Fab03
+	           ; ClCCl; Enamide1c;C=C(NC(... </p>
+	        </div>
+	        <div class="modal-footer">
+	      		<button onClick="validate()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+       </div>
+     </div>
+</div>
+
+
+
+<script type="text/javascript">
+//<![CDATA[ 
+
+
+$("#scanVars").click(function() {
+	
+	if ($('#scanVars').is(':checked')) 
+	{
+		$('#quiral').prop('disabled', false);
+			
+		$('#scanNuc').prop('checked', false);
+		$('#scanSol').prop('checked', false);
+		$('#scanSub').prop('checked', false);
+		$('#scanCat').prop('checked', false);
+		$('#predict').prop('checked', false);
+				
+		$('#maxTime').prop('disabled', false);
+		$('#minTime').prop('disabled', false);
+		$('#timeStep').prop('disabled', false);
+
+		$('#maxTemp').prop('disabled', false);
+		$('#minTemp').prop('disabled', false);
+		$('#tempStep').prop('disabled', false);
+
+		$('#maxLoad').prop('disabled', false);
+		$('#minLoad').prop('disabled', false);
+		$('#loadStep').prop('disabled', false);			
+
+		$('#time').prop('disabled', true);
+		$('#temp').prop('disabled', true);
+		$('#load').prop('disabled', true);
+}
+	else
+	{
+		$('#quiral').prop('disabled', true);
+			
+		$('#maxTime').prop('disabled', true);
+		$('#minTime').prop('disabled', true);
+		$('#timeStep').prop('disabled', true);
+
+		$('#maxTemp').prop('disabled', true);
+		$('#minTemp').prop('disabled', true);
+		$('#tempStep').prop('disabled', true);
+
+		$('#maxLoad').prop('disabled', true);
+		$('#minLoad').prop('disabled', true);
+		$('#loadStep').prop('disabled', true);	
+		
+		$('#time').prop('disabled', false);
+		$('#temp').prop('disabled', false);
+		$('#load').prop('disabled', false);	
+	}
+});
+
+$("#predict").click(function() {
+	
+	if ($('#predict').is(':checked')) 
+	{
+		
+		$('#quiral').prop('disabled', true);
+		
+		$('#maxTime').prop('disabled', true);
+		$('#minTime').prop('disabled', true);
+		$('#timeStep').prop('disabled', true);
+
+		$('#maxTemp').prop('disabled', true);
+		$('#minTemp').prop('disabled', true);
+		$('#tempStep').prop('disabled', true);
+
+		$('#maxLoad').prop('disabled', true);
+		$('#minLoad').prop('disabled', true);
+		$('#loadStep').prop('disabled', true);	
+		
+		$('#scanVars').prop('checked', false);
+		
+		$('#scanNuc').prop('checked', false);
+		$('#scanSol').prop('checked', false);
+		$('#scanSub').prop('checked', false);
+		$('#scanCat').prop('checked', false);
+	
+		$('#time').prop('disabled', false);
+		$('#temp').prop('disabled', false);
+		$('#load').prop('disabled', false);
+	}
+	
+});	
+
+$("#scanNuc").click(function() {
+	
+		$('#quiral').prop('disabled', true);
+		
+		$('#maxTime').prop('disabled', true);
+		$('#minTime').prop('disabled', true);
+		$('#timeStep').prop('disabled', true);
+
+		$('#maxTemp').prop('disabled', true);
+		$('#minTemp').prop('disabled', true);
+		$('#tempStep').prop('disabled', true);
+
+		$('#maxLoad').prop('disabled', true);
+		$('#minLoad').prop('disabled', true);
+		$('#loadStep').prop('disabled', true);	
+		
+		$('#scanVars').prop('checked', false);
+		
+		$('#scanSol').prop('checked', false);
+		$('#scanSub').prop('checked', false);
+		$('#scanCat').prop('checked', false);
+	
+		$('#time').prop('disabled', false);
+		$('#temp').prop('disabled', false);
+		$('#load').prop('disabled', false);	
+	
+});	
+
+$("#scanCat").click(function() {
+	
+	$('#quiral').prop('disabled', true);
+	
+	$('#maxTime').prop('disabled', true);
+	$('#minTime').prop('disabled', true);
+	$('#timeStep').prop('disabled', true);
+
+	$('#maxTemp').prop('disabled', true);
+	$('#minTemp').prop('disabled', true);
+	$('#tempStep').prop('disabled', true);
+
+	$('#maxLoad').prop('disabled', true);
+	$('#minLoad').prop('disabled', true);
+	$('#loadStep').prop('disabled', true);	
+	
+	$('#scanVars').prop('checked', false);
+	
+	$('#scanSol').prop('checked', false);
+	$('#scanSub').prop('checked', false);
+	$('#scanNuc').prop('checked', false);
+
+	$('#time').prop('disabled', false);
+	$('#temp').prop('disabled', false);
+	$('#load').prop('disabled', false);	
+
+});	
+
+$("#scanSub").click(function() {
+	
+	$('#quiral').prop('disabled', true);
+	
+	$('#maxTime').prop('disabled', true);
+	$('#minTime').prop('disabled', true);
+	$('#timeStep').prop('disabled', true);
+
+	$('#maxTemp').prop('disabled', true);
+	$('#minTemp').prop('disabled', true);
+	$('#tempStep').prop('disabled', true);
+
+	$('#maxLoad').prop('disabled', true);
+	$('#minLoad').prop('disabled', true);
+	$('#loadStep').prop('disabled', true);	
+	
+	$('#scanVars').prop('checked', false);
+	
+	$('#scanSol').prop('checked', false);
+	$('#scanNuc').prop('checked', false);
+	$('#scanCat').prop('checked', false);
+
+	$('#time').prop('disabled', false);
+	$('#temp').prop('disabled', false);
+	$('#load').prop('disabled', false);	
+
+});	
+
+$("#scanSol").click(function() {
+	
+	$('#quiral').prop('disabled', true);
+	
+	$('#maxTime').prop('disabled', true);
+	$('#minTime').prop('disabled', true);
+	$('#timeStep').prop('disabled', true);
+
+	$('#maxTemp').prop('disabled', true);
+	$('#minTemp').prop('disabled', true);
+	$('#tempStep').prop('disabled', true);
+
+	$('#maxLoad').prop('disabled', true);
+	$('#minLoad').prop('disabled', true);
+	$('#loadStep').prop('disabled', true);	
+	
+	$('#scanVars').prop('checked', false);
+	
+	$('#scanNuc').prop('checked', false);
+	$('#scanSub').prop('checked', false);
+	$('#scanCat').prop('checked', false);
+
+	$('#time').prop('disabled', false);
+	$('#temp').prop('disabled', false);
+	$('#load').prop('disabled', false);	
+
+});	
+
+
+
+
+
+	
+$("#suSmiles").keyup(function() {
+	
+	var string = $('#suSmiles').val();
+	var lines = string.split(/\n/).length;
+	
+	if (lines < 2)
+	{
+		$('#suSmiles').prop('disabled', false);		
+	}
+	else
+	{
+		$('#suSmiles').prop('disabled', true);
+	}
+});
+
+$("#soSmiles").keyup(function() {
+	
+	var string = $('#soSmiles').val();
+	var lines = string.split(/\n/).length;
+	
+	if (lines < 2)
+	{
+		$('#soSmiles').prop('disabled', false);		
+	}
+	else
+	{
+		$('#soSmiles').prop('disabled', true);
+	}
+});
+
+$("#pSmiles").keyup(function() {
+	
+	var string = $('#pSmiles').val();
+	var lines = string.split(/\n/).length;
+	
+	if (lines < 2)
+	{
+		$('#pSmiles').prop('disabled', false);		
+	}
+	else
+	{
+		$('#pSmiles').prop('disabled', true);
+	}
+});
+
+$("#cSmiles").keyup(function() {
+	
+	var string = $('#cSmiles').val();
+	var lines = string.split(/\n/).length;
+	
+	if (lines < 2)
+	{
+		$('#cSmiles').prop('disabled', false);		
+	}
+	else
+	{
+		$('#cSmiles').prop('disabled', true);
+	}
+});
+
+$("#nSmiles").keyup(function() {
+	
+	var string = $('#nSmiles').val();
+	var lines = string.split(/\n/).length;
+	
+	if (lines < 2)
+	{
+		$('#nSmiles').prop('disabled', false);		
+	}
+	else
+	{
+		$('#nSmiles').prop('disabled', true);
+	}
+});
+	
+//]]>
+</script>
+
+</body>
+</html>

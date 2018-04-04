@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+     <title>Results</title>
+	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	 <meta name="author" content="Paula Carracedo" />
+	 <meta name="description" content="Chemoinformatics applications" />
+	 <meta name="keywords" content="Molecular descriptor, smile" />
+	 
+	 <link type="text/css" rel="stylesheet" th:href="@{../../resources/css/bootstrap.min.css}" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script> 
+   </head>
+  
+   <body>
+
+	<br/>
+	<div class="row">
+		<h1 align = "center">Structures of the more similar reference reaction only for the first query reaction </h1>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="col-md-4" align = "center">
+			<h2 style="color:#d80000">Substrate</h2>
+		</div>
+		<div class="col-md-4" align = "center">
+			<h2 style="color:#d80000">Nucleophile</h2>
+		</div>
+		<div class="col-md-4" align = "center">
+			<h2 style="color:#d80000">Catalyst</h2>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-4" align = "center">
+			<img style="width:200;height:150px" th:src="@{'/resources/img/reactions/subs/' + ${subsImage} + '.jpg'}"/>
+		</div>
+		<div class="col-md-4" align = "center">
+			<img style="width:200;height:150px" th:src="@{'/resources/img/reactions/nuc/' + ${nucImage} + '.jpg'}"/>
+		</div>
+		<div class="col-md-4" align = "center">
+			<img style="width:200;height:150px" th:src="@{'/resources/img/reactions/cat/' + ${catImage} + '.jpg'}"/>
+		</div>
+	</div>
+   	<br/>
+   	<br/>
+   	<div class="row">
+   		<h3 align="center"> Structures of the more similar reference reaction only for the first query reaction</h3>
+   	</div>
+   	<br/>
+   
+   
+   <script th:inline="javascript">
+/*<![CDATA[*/
+
+	function arrayToTable(tableData) {
+        var table = $('<table class="table table-bordered"></table>');
+        $(tableData).each(function (i, rowData) {
+            var row = $('<tr></tr>');
+            $(rowData).each(function (j, cellData) {
+                row.append($('<td>'+cellData+'</td>'));
+            });
+            table.append(row);
+        });
+        return table;
+    }
+	
+$.ajax({
+    type: "GET",
+    url: [[${fileName}]],
+    success: function (data) {
+        $('body').append(arrayToTable(Papa.parse(data).data));
+    }
+});
+
+/*]]>*/
+</script>
+   
+   </body>
+</html>
