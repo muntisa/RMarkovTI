@@ -1,0 +1,2 @@
+Reaction;Subs;SubsSmile;Prod;ProdSmile;Cat;CatSmile;Solv;SolvSmile;Nuc;NucSmile
+R1;S1;OC(C1=CC(Cl)=C(F)C=C1)C2=CNC3=C2C=CC=C3;P1;O=C(CC(C1=CC=C(F)C(Cl)=C1)C2=CNC3=C2C=CC=C3)C4=CC=C(Cl)C=C4;C1;O=P1(O)OC(C(C2=CC=CC=C2)=C3)=[C@@]([C@@]4=C(CCCC5)C5=CC(C6=CC=CC=C6)=C4O1)C7=C3CCCC7;S1;ClCCl;N1;C=C(NC(C1=CC=CC=C1)=O)C2=CC=C(Cl)C=C2
